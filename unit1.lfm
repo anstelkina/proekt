@@ -1,0 +1,229 @@
+object Form1: TForm1
+  Left = 440
+  Height = 414
+  Top = 221
+  Width = 645
+  Caption = 'Игра "Пятнашки"'
+  ClientHeight = 389
+  ClientWidth = 645
+  DesignTimePPI = 120
+  Menu = MainMenu1
+  OnCreate = FormCreate
+  Position = poDesktopCenter
+  LCLVersion = '2.0.12.0'
+  object Label1: TLabel
+    Left = 24
+    Height = 20
+    Top = 88
+    Width = 100
+    Caption = 'Счётчик ходов'
+    ParentColor = False
+    Visible = False
+  end
+  object Edit1: TEdit
+    Left = 144
+    Height = 28
+    Top = 88
+    Width = 75
+    Enabled = False
+    Font.CharSet = RUSSIAN_CHARSET
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Segoe UI'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 0
+    Visible = False
+  end
+  object Label2: TLabel
+    Left = 24
+    Height = 20
+    Top = 128
+    Width = 53
+    Caption = 'Таймер'
+    ParentColor = False
+    Visible = False
+  end
+  object Edit2: TEdit
+    Left = 144
+    Height = 28
+    Top = 128
+    Width = 75
+    Enabled = False
+    Font.CharSet = RUSSIAN_CHARSET
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Segoe UI'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 1
+    Visible = False
+  end
+  object Label3: TLabel
+    Left = 376
+    Height = 20
+    Top = 32
+    Width = 8
+    Caption = '0'
+    ParentColor = False
+    Visible = False
+  end
+  object Label4: TLabel
+    Left = 360
+    Height = 20
+    Top = 32
+    Width = 8
+    Caption = '0'
+    ParentColor = False
+    Visible = False
+    OnClick = Label4Click
+  end
+  object Label5: TLabel
+    Left = 256
+    Height = 20
+    Top = 88
+    Width = 139
+    Caption = 'Ограничение ходов'
+    ParentColor = False
+    Visible = False
+  end
+  object Label6: TLabel
+    Left = 256
+    Height = 20
+    Top = 128
+    Width = 160
+    Caption = 'Ограничение времени'
+    ParentColor = False
+    Visible = False
+  end
+  object Edit3: TEdit
+    Left = 440
+    Height = 28
+    Top = 88
+    Width = 72
+    OnChange = Edit3Change
+    TabOrder = 2
+    Visible = False
+  end
+  object Edit4: TEdit
+    Left = 440
+    Height = 28
+    Top = 128
+    Width = 72
+    TabOrder = 3
+    Visible = False
+  end
+  object MainMenu1: TMainMenu
+    Left = 24
+    Top = 16
+    object MenuGame: TMenuItem
+      Caption = 'Игра'
+      object MenuNewGame: TMenuItem
+        Caption = 'Новая игра'
+        OnClick = MenuNewGameClick
+      end
+      object MenuSaveGame: TMenuItem
+        Caption = 'Сохранить игру'
+        OnClick = MenuSaveGameClick
+      end
+      object MenuOpenGame: TMenuItem
+        Caption = 'Открыть игру'
+        OnClick = MenuOpenGameClick
+      end
+      object MenuExitGame: TMenuItem
+        Caption = 'Выход'
+        OnClick = MenuExitGameClick
+      end
+    end
+    object MenuOption: TMenuItem
+      Caption = 'Настройки'
+      OnClick = MenuOptionClick
+      object MenuCounter: TMenuItem
+        Caption = 'Счетчик ходов'
+        OnClick = MenuCounterClick
+      end
+      object MenuTimer: TMenuItem
+        Caption = 'Таймер'
+        OnClick = MenuTimerClick
+      end
+      object MenuRestMove: TMenuItem
+        Caption = 'Ограничение по ходам'
+        object MenuMoves150: TMenuItem
+          Caption = '150 ходов'
+          OnClick = MenuMoves150Click
+        end
+        object MenuMoves300: TMenuItem
+          Caption = '300 ходов'
+          OnClick = MenuMoves300Click
+        end
+        object MenuMoves500: TMenuItem
+          Caption = '500 ходов'
+          OnClick = MenuMoves500Click
+        end
+      end
+      object MenuRestTime: TMenuItem
+        Caption = 'Ограничение по времени'
+        OnClick = MenuRestTimeClick
+        object Menu5min: TMenuItem
+          Caption = '5 минут'
+          OnClick = Menu5minClick
+        end
+        object Menu10min: TMenuItem
+          Caption = '10 минут'
+          OnClick = Menu10minClick
+        end
+        object Menu15min: TMenuItem
+          Caption = '15 минут'
+          OnClick = Menu15minClick
+        end
+      end
+      object MenuInterface: TMenuItem
+        Caption = 'Интерфейс '
+        object MenuWhite: TMenuItem
+          Caption = 'Черный текст, белый фон'
+        end
+        object MenuBlack: TMenuItem
+          Caption = 'Белый текст, черный фон'
+          OnClick = MenuBlackClick
+        end
+        object MenuViolet: TMenuItem
+          Caption = 'Розовый текст, фиолетовый фон'
+          OnClick = MenuVioletClick
+        end
+      end
+    end
+    object MenuHelp: TMenuItem
+      Caption = 'Справка'
+      object MenuRules: TMenuItem
+        Caption = 'Правила игры'
+        OnClick = MenuRulesClick
+      end
+      object MenuAbout: TMenuItem
+        Caption = 'О программе '
+        OnClick = MenuAboutClick
+      end
+    end
+  end
+  object OpenDialog1: TOpenDialog
+    DefaultExt = '.dat'
+    FileName = 'Save'
+    Left = 120
+    Top = 16
+  end
+  object SaveDialog1: TSaveDialog
+    DefaultExt = '.dat'
+    FileName = 'Save'
+    Left = 216
+    Top = 16
+  end
+  object Timer1: TTimer
+    Interval = 100
+    OnTimer = Timer1Timer
+    Left = 304
+    Top = 16
+  end
+end

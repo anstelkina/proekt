@@ -1,0 +1,30 @@
+object Form3: TForm3
+  Left = 709
+  Height = 305
+  Top = 556
+  Width = 459
+  BorderStyle = bsDialog
+  Caption = 'Правила игры'
+  ClientHeight = 305
+  ClientWidth = 459
+  DesignTimePPI = 120
+  Position = poDesktopCenter
+  LCLVersion = '2.0.12.0'
+  object StaticText1: TStaticText
+    Left = 32
+    Height = 217
+    Top = 24
+    Width = 400
+    Caption = 'Представляет собой набор одинаковых квадратных ячеек с числами. Длина стороны поля, в котором находятся ячейки в четыре раза больше длины стороны ячейки для набора из 15 элементов, соответственно в коробке остаётся незаполненным одно квадратное поле. Цель игры — перемещая ячейки с числами по полю, чтобы добиться упорядочивания их по номерам, желательно сделав как можно меньше перемещений.'
+    TabOrder = 0
+  end
+  object Button1: TButton
+    Left = 176
+    Height = 25
+    Top = 263
+    Width = 104
+    Caption = 'Закрыть'
+    OnClick = Button1Click
+    TabOrder = 1
+  end
+end

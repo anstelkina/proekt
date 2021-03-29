@@ -1,0 +1,46 @@
+object Form2: TForm2
+  Left = 843
+  Height = 238
+  Top = 246
+  Width = 408
+  BorderStyle = bsDialog
+  Caption = 'О программе'
+  ClientHeight = 238
+  ClientWidth = 408
+  DesignTimePPI = 120
+  Position = poDesktopCenter
+  LCLVersion = '2.0.12.0'
+  object Label1: TLabel
+    Left = 88
+    Height = 20
+    Top = 40
+    Width = 225
+    Caption = 'Увлекательная игра "Пятнашки"'
+    ParentColor = False
+  end
+  object Label2: TLabel
+    Left = 128
+    Height = 20
+    Top = 88
+    Width = 152
+    Caption = 'Версия 1.0(beta), 2021'
+    ParentColor = False
+  end
+  object Label3: TLabel
+    Left = 112
+    Height = 20
+    Top = 128
+    Width = 182
+    Caption = 'Автор: Елькина Анастасия'
+    ParentColor = False
+  end
+  object Button1: TButton
+    Left = 176
+    Height = 33
+    Top = 176
+    Width = 76
+    Caption = 'Закрыть'
+    OnClick = Button1Click
+    TabOrder = 0
+  end
+end
