@@ -1,29 +1,31 @@
 object Form1: TForm1
-  Left = 440
-  Height = 414
+  Left = 542
+  Height = 631
   Top = 221
-  Width = 645
+  Width = 1014
   Caption = 'Игра "Пятнашки"'
-  ClientHeight = 389
-  ClientWidth = 645
+  ClientHeight = 606
+  ClientWidth = 1014
+  Color = clNone
   DesignTimePPI = 120
   Menu = MainMenu1
   OnCreate = FormCreate
   Position = poDesktopCenter
   LCLVersion = '2.0.12.0'
+  Visible = True
   object Label1: TLabel
-    Left = 24
+    Left = 8
     Height = 20
-    Top = 88
+    Top = 408
     Width = 100
     Caption = 'Счётчик ходов'
     ParentColor = False
     Visible = False
   end
   object Edit1: TEdit
-    Left = 144
+    Left = 128
     Height = 28
-    Top = 88
+    Top = 408
     Width = 75
     Enabled = False
     Font.CharSet = RUSSIAN_CHARSET
@@ -38,18 +40,18 @@ object Form1: TForm1
     Visible = False
   end
   object Label2: TLabel
-    Left = 24
+    Left = 8
     Height = 20
-    Top = 128
+    Top = 448
     Width = 53
     Caption = 'Таймер'
     ParentColor = False
     Visible = False
   end
   object Edit2: TEdit
-    Left = 144
+    Left = 128
     Height = 28
-    Top = 128
+    Top = 448
     Width = 75
     Enabled = False
     Font.CharSet = RUSSIAN_CHARSET
@@ -64,18 +66,18 @@ object Form1: TForm1
     Visible = False
   end
   object Label3: TLabel
-    Left = 376
+    Left = 928
     Height = 20
-    Top = 32
+    Top = 80
     Width = 8
     Caption = '0'
     ParentColor = False
     Visible = False
   end
   object Label4: TLabel
-    Left = 360
+    Left = 912
     Height = 20
-    Top = 32
+    Top = 80
     Width = 8
     Caption = '0'
     ParentColor = False
@@ -83,43 +85,471 @@ object Form1: TForm1
     OnClick = Label4Click
   end
   object Label5: TLabel
-    Left = 256
+    Left = 240
     Height = 20
-    Top = 88
+    Top = 408
     Width = 139
     Caption = 'Ограничение ходов'
     ParentColor = False
     Visible = False
   end
   object Label6: TLabel
-    Left = 256
+    Left = 240
     Height = 20
-    Top = 128
+    Top = 448
     Width = 160
     Caption = 'Ограничение времени'
     ParentColor = False
     Visible = False
   end
   object Edit3: TEdit
-    Left = 440
+    Left = 424
     Height = 28
-    Top = 88
+    Top = 408
     Width = 72
     OnChange = Edit3Change
     TabOrder = 2
     Visible = False
   end
   object Edit4: TEdit
-    Left = 440
+    Left = 424
     Height = 28
-    Top = 128
+    Top = 448
     Width = 72
     TabOrder = 3
     Visible = False
   end
+  object Shape1: TShape
+    Left = 8
+    Height = 80
+    Top = 56
+    Width = 80
+    OnChangeBounds = Shape1ChangeBounds
+  end
+  object Shape2: TShape
+    Left = 88
+    Height = 80
+    Hint = '90'
+    Top = 56
+    Width = 80
+  end
+  object Shape3: TShape
+    Left = 88
+    Height = 80
+    Top = 136
+    Width = 80
+  end
+  object Shape4: TShape
+    Left = 8
+    Height = 80
+    Top = 136
+    Width = 80
+  end
+  object Shape5: TShape
+    Left = 8
+    Height = 80
+    Top = 216
+    Width = 80
+  end
+  object Shape6: TShape
+    Left = 88
+    Height = 80
+    Top = 216
+    Width = 80
+  end
+  object Shape7: TShape
+    Left = 8
+    Height = 80
+    Top = 296
+    Width = 80
+  end
+  object Shape8: TShape
+    Left = 88
+    Height = 80
+    Top = 296
+    Width = 80
+  end
+  object Shape9: TShape
+    Left = 246
+    Height = 80
+    Top = 296
+    Width = 80
+  end
+  object Shape11: TShape
+    Left = 246
+    Height = 80
+    Top = 56
+    Width = 80
+    OnChangeBounds = Shape11ChangeBounds
+  end
+  object Shape12: TShape
+    Left = 166
+    Height = 80
+    Top = 56
+    Width = 80
+  end
+  object Shape14: TShape
+    Left = 166
+    Height = 80
+    Top = 216
+    Width = 80
+  end
+  object Shape15: TShape
+    Left = 166
+    Height = 80
+    Top = 296
+    Width = 80
+    OnChangeBounds = Shape15ChangeBounds
+  end
+  object Shape16: TShape
+    Left = 246
+    Height = 80
+    Top = 136
+    Width = 80
+  end
+  object Shape17: TShape
+    Left = 166
+    Height = 80
+    Top = 136
+    Width = 80
+  end
+  object Shape18: TShape
+    Left = 246
+    Height = 80
+    Top = 216
+    Width = 80
+  end
+  object SpeedButton1: TSpeedButton
+    Left = 16
+    Height = 60
+    Top = 64
+    Width = 60
+    Caption = '1'
+    Color = clSilver
+    Flat = True
+    Font.CharSet = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -47
+    Font.Name = 'Segoe UI Emoji'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    Transparent = False
+    OnClick = SpeedButton1Click
+    ParentFont = False
+  end
+  object SpeedButton0: TSpeedButton
+    Left = 256
+    Height = 60
+    Hint = '0'
+    Top = 304
+    Width = 60
+    Caption = '0'
+    Color = clSilver
+    Flat = True
+    Font.CharSet = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -47
+    Font.Name = 'Segoe UI Emoji'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    Transparent = False
+    Visible = False
+    OnClick = SpeedButton0Click
+    ParentFont = False
+  end
+  object Edit5: TEdit
+    Left = 128
+    Height = 28
+    Top = 488
+    Width = 251
+    TabOrder = 4
+    Text = 'Edit5'
+  end
+  object SpeedButton2: TSpeedButton
+    Left = 96
+    Height = 60
+    Hint = '0'
+    Top = 64
+    Width = 60
+    Caption = '2'
+    Color = clSilver
+    Flat = True
+    Font.CharSet = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -47
+    Font.Name = 'Segoe UI Emoji'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    Transparent = False
+    OnClick = SpeedButton2Click
+    ParentFont = False
+  end
+  object SpeedButton3: TSpeedButton
+    Left = 176
+    Height = 60
+    Hint = '0'
+    Top = 64
+    Width = 60
+    Caption = '3'
+    Color = clSilver
+    Flat = True
+    Font.CharSet = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -47
+    Font.Name = 'Segoe UI Emoji'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    Transparent = False
+    OnClick = SpeedButton3Click
+    ParentFont = False
+  end
+  object SpeedButton4: TSpeedButton
+    Left = 256
+    Height = 60
+    Hint = '0'
+    Top = 64
+    Width = 60
+    Caption = '4'
+    Color = clSilver
+    Flat = True
+    Font.CharSet = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -47
+    Font.Name = 'Segoe UI Emoji'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    Transparent = False
+    OnClick = SpeedButton4Click
+    ParentFont = False
+  end
+  object SpeedButton5: TSpeedButton
+    Left = 16
+    Height = 60
+    Hint = '0'
+    Top = 144
+    Width = 60
+    Caption = '5'
+    Color = clSilver
+    Flat = True
+    Font.CharSet = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -47
+    Font.Name = 'Segoe UI Emoji'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    Transparent = False
+    OnClick = SpeedButton5Click
+    ParentFont = False
+  end
+  object SpeedButton6: TSpeedButton
+    Left = 96
+    Height = 60
+    Hint = '0'
+    Top = 144
+    Width = 60
+    Caption = '6'
+    Color = clSilver
+    Flat = True
+    Font.CharSet = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -47
+    Font.Name = 'Segoe UI Emoji'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    Transparent = False
+    OnClick = SpeedButton6Click
+    ParentFont = False
+  end
+  object SpeedButton7: TSpeedButton
+    Left = 176
+    Height = 60
+    Hint = '0'
+    Top = 144
+    Width = 60
+    Caption = '7'
+    Color = clSilver
+    Flat = True
+    Font.CharSet = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -47
+    Font.Name = 'Segoe UI Emoji'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    Transparent = False
+    OnClick = SpeedButton7Click
+    ParentFont = False
+  end
+  object SpeedButton8: TSpeedButton
+    Left = 256
+    Height = 60
+    Hint = '0'
+    Top = 144
+    Width = 60
+    Caption = '8'
+    Color = clSilver
+    Flat = True
+    Font.CharSet = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -47
+    Font.Name = 'Segoe UI Emoji'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    Transparent = False
+    OnClick = SpeedButton8Click
+    ParentFont = False
+  end
+  object SpeedButton9: TSpeedButton
+    Left = 16
+    Height = 60
+    Hint = '0'
+    Top = 224
+    Width = 60
+    Caption = '9'
+    Color = clSilver
+    Flat = True
+    Font.CharSet = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -47
+    Font.Name = 'Segoe UI Emoji'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    Transparent = False
+    OnClick = SpeedButton9Click
+    ParentFont = False
+  end
+  object SpeedButton10: TSpeedButton
+    Left = 96
+    Height = 60
+    Hint = '0'
+    Top = 224
+    Width = 60
+    Caption = '10'
+    Color = clSilver
+    Flat = True
+    Font.CharSet = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -47
+    Font.Name = 'Segoe UI Emoji'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    Transparent = False
+    OnClick = SpeedButton10Click
+    ParentFont = False
+  end
+  object SpeedButton11: TSpeedButton
+    Left = 176
+    Height = 60
+    Hint = '0'
+    Top = 224
+    Width = 60
+    Caption = '11'
+    Color = clSilver
+    Flat = True
+    Font.CharSet = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -47
+    Font.Name = 'Segoe UI Emoji'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    Transparent = False
+    OnClick = SpeedButton11Click
+    ParentFont = False
+  end
+  object SpeedButton12: TSpeedButton
+    Left = 256
+    Height = 60
+    Hint = '0'
+    Top = 224
+    Width = 60
+    Caption = '12'
+    Color = clSilver
+    Flat = True
+    Font.CharSet = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -47
+    Font.Name = 'Segoe UI Emoji'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    Transparent = False
+    OnClick = SpeedButton12Click
+    ParentFont = False
+  end
+  object SpeedButton13: TSpeedButton
+    Left = 16
+    Height = 60
+    Hint = '0'
+    Top = 304
+    Width = 60
+    Caption = '13'
+    Color = clSilver
+    Flat = True
+    Font.CharSet = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -47
+    Font.Name = 'Segoe UI Emoji'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    Transparent = False
+    OnClick = SpeedButton13Click
+    ParentFont = False
+  end
+  object SpeedButton14: TSpeedButton
+    Left = 96
+    Height = 60
+    Hint = '0'
+    Top = 304
+    Width = 60
+    Caption = '14'
+    Color = clSilver
+    Flat = True
+    Font.CharSet = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -47
+    Font.Name = 'Segoe UI Emoji'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    Transparent = False
+    OnClick = SpeedButton14Click
+    ParentFont = False
+  end
+  object SpeedButton15: TSpeedButton
+    Left = 176
+    Height = 60
+    Hint = '0'
+    Top = 304
+    Width = 60
+    Caption = '15'
+    Color = clSilver
+    Flat = True
+    Font.CharSet = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -47
+    Font.Name = 'Segoe UI Emoji'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    Transparent = False
+    OnClick = SpeedButton15Click
+    ParentFont = False
+  end
   object MainMenu1: TMainMenu
-    Left = 24
-    Top = 16
+    Left = 576
+    Top = 64
     object MenuGame: TMenuItem
       Caption = 'Игра'
       object MenuNewGame: TMenuItem
@@ -185,6 +615,7 @@ object Form1: TForm1
         Caption = 'Интерфейс '
         object MenuWhite: TMenuItem
           Caption = 'Черный текст, белый фон'
+          OnClick = MenuWhiteClick
         end
         object MenuBlack: TMenuItem
           Caption = 'Белый текст, черный фон'
@@ -211,19 +642,19 @@ object Form1: TForm1
   object OpenDialog1: TOpenDialog
     DefaultExt = '.dat'
     FileName = 'Save'
-    Left = 120
-    Top = 16
+    Left = 672
+    Top = 64
   end
   object SaveDialog1: TSaveDialog
     DefaultExt = '.dat'
     FileName = 'Save'
-    Left = 216
-    Top = 16
+    Left = 768
+    Top = 64
   end
   object Timer1: TTimer
     Interval = 100
     OnTimer = Timer1Timer
-    Left = 304
-    Top = 16
+    Left = 856
+    Top = 64
   end
 end
