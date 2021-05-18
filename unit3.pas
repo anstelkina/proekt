@@ -14,7 +14,10 @@ type
   TForm3 = class(TForm)
     Button1: TButton;
     StaticText1: TStaticText;
+    StaticText2: TStaticText;
     procedure Button1Click(Sender: TObject);
+    procedure Edit1Change(Sender: TObject);
+    procedure StaticText1Click(Sender: TObject);
   private
 
   public
@@ -33,6 +36,16 @@ implementation
 procedure TForm3.Button1Click(Sender: TObject);
 begin
   Form3.Close;
+end;
+
+procedure TForm3.Edit1Change(Sender: TObject);
+begin
+
+end;
+
+procedure TForm3.StaticText1Click(Sender: TObject);
+begin
+
 end;
 
 end.

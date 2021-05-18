@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus, StdCtrls,
-  ExtCtrls, Buttons, Unit2, Unit3;
+  ExtCtrls, Buttons, Unit2, Unit3, Types;
 
 type
 
@@ -24,6 +24,10 @@ type
     Label4: TLabel;
     Label5: TLabel;
     Label6: TLabel;
+    Label7: TLabel;
+    ListBox1: TListBox;
+    ListBox2: TListBox;
+    ListBox3: TListBox;
     MainMenu1: TMainMenu;
     MenuAbout: TMenuItem;
     MenuCounter: TMenuItem;
@@ -31,6 +35,10 @@ type
     MenuGame: TMenuItem;
     MenuHelp: TMenuItem;
     MenuInterface: TMenuItem;
+    MenuEndGame: TMenuItem;
+    MenuOffMove: TMenuItem;
+    MenuOffTime: TMenuItem;
+    MenuSaveOption: TMenuItem;
     MenuWhite: TMenuItem;
     MenuBlack: TMenuItem;
     MenuViolet: TMenuItem;
@@ -48,8 +56,6 @@ type
     MenuRestTime: TMenuItem;
     MenuRules: TMenuItem;
     MenuSaveGame: TMenuItem;
-    OpenDialog1: TOpenDialog;
-    SaveDialog1: TSaveDialog;
     Shape1: TShape;
     Shape11: TShape;
     Shape12: TShape;
@@ -83,16 +89,20 @@ type
     SpeedButton8: TSpeedButton;
     SpeedButton9: TSpeedButton;
     Timer1: TTimer;
-    procedure BitBtn1Click(Sender: TObject);
-    procedure Button6Click(Sender: TObject);
-    procedure Edit3Change(Sender: TObject);
+    procedure Edit2Change(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
-    procedure Label4Click(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure Label7Click(Sender: TObject);
     procedure Menu15minClick(Sender: TObject);
     procedure MenuAboutClick(Sender: TObject);
     procedure MenuCounterClick(Sender: TObject);
     procedure Menu10minClick(Sender: TObject);
     procedure MenuBlackClick(Sender: TObject);
+    procedure MenuEndGameClick(Sender: TObject);
+    procedure MenuOffTimeClick(Sender: TObject);
+    procedure MenuOffMoveClick(Sender: TObject);
+    procedure MenuSaveOptionClick(Sender: TObject);
     procedure MenuVioletClick(Sender: TObject);
     procedure MenuMoves150Click(Sender: TObject);
     procedure MenuMoves300Click(Sender: TObject);
@@ -108,8 +118,44 @@ type
     procedure MenuTimerClick(Sender: TObject);
     procedure MenuWhiteClick(Sender: TObject);
     procedure Shape11ChangeBounds(Sender: TObject);
+    procedure Shape11MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Shape12ChangeBounds(Sender: TObject);
+    procedure Shape12MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Shape14ChangeBounds(Sender: TObject);
+    procedure Shape14MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure Shape15ChangeBounds(Sender: TObject);
-    procedure Shape1ChangeBounds(Sender: TObject);
+    procedure Shape15MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Shape16ChangeBounds(Sender: TObject);
+    procedure Shape16MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Shape17ChangeBounds(Sender: TObject);
+    procedure Shape17MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Shape18MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Shape1MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Shape2MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Shape3MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Shape4MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Shape5MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Shape6MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Shape7MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Shape8MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Shape9ChangeBounds(Sender: TObject);
+    procedure Shape9MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure SpeedButton0Click(Sender: TObject);
     procedure SpeedButton10Click(Sender: TObject);
     procedure SpeedButton11Click(Sender: TObject);
@@ -136,11 +182,244 @@ type
 var
   Form1: TForm1;
 
+
 implementation
 
 {$R *.lfm}
 
 { TForm1 }
+
+var
+a:array[1..16]of integer;
+i,j,rn,p,z:integer;
+
+Function GameWin (): boolean;
+begin
+GameWin:=
+(Form1.SpeedButton1.Left=8) and (Form1.SpeedButton2.Left=88) and (Form1.SpeedButton3.Left=168) and (Form1.SpeedButton4.Left=248) and
+(Form1.SpeedButton5.Left=8) and (Form1.SpeedButton6.Left=88) and (Form1.SpeedButton7.Left=168) and (Form1.SpeedButton8.Left=248) and
+(Form1.SpeedButton9.Left=8) and (Form1.SpeedButton10.Left=88) and (Form1.SpeedButton11.Left=168) and (Form1.SpeedButton12.Left=248) and
+(Form1.SpeedButton13.Left=8) and (Form1.SpeedButton14.Left=88) and (Form1.SpeedButton15.Left=168) and (Form1.SpeedButton0.Left=248) and
+
+(Form1.SpeedButton1.Top=8) and (Form1.SpeedButton5.Top=88) and (Form1.SpeedButton9.Top=168) and (Form1.SpeedButton13.Top=248) and
+(Form1.SpeedButton2.Top=8) and (Form1.SpeedButton6.Top=88) and (Form1.SpeedButton10.Top=168) and (Form1.SpeedButton14.Top=248) and
+(Form1.SpeedButton3.Top=8) and (Form1.SpeedButton7.Top=88) and (Form1.SpeedButton11.Top=168) and (Form1.SpeedButton15.Top=248) and
+(Form1.SpeedButton4.Top=8) and (Form1.SpeedButton8.Top=88) and (Form1.SpeedButton12.Top=168) and (Form1.SpeedButton0.Top=248) and
+(Form1.Label7.Caption='0');
+end;
+
+Function GameLose (): boolean;
+begin
+GameLose:=(Form1.Edit1.Text=Form1.Edit3.Text) or (Form1.Edit2.Text=Form1.Edit4.Text);
+end;
+
+procedure OptionDisable;
+begin
+Form1.MenuCounter.Enabled:= false;
+Form1.MenuTimer.Enabled:= false;
+Form1.MenuRestMove.Enabled:= false;
+Form1.MenuRestTime.Enabled:= false;
+
+end;
+
+procedure OptionEnable;
+begin
+Form1.MenuCounter.Enabled:= true;
+Form1.MenuTimer.Enabled:= true;
+Form1.MenuRestMove.Enabled:= true;
+Form1.MenuRestTime.Enabled:= true;
+end;
+
+procedure SaveGameToFile;
+begin
+Form1.listbox1.clear;
+  begin
+  for z:= 1 to 16 do
+  begin
+  with TSpeedButton(form1.components[z+25]) do
+   begin
+   Form1.listbox1.Items.Add(inttostr(left));
+ end;
+end;
+  end;
+   begin
+  for z:= 1 to 16 do
+  begin
+  with TSpeedButton(form1.components[z+25]) do
+   begin
+   Form1.listbox1.Items.Add(inttostr(top));
+ end;
+end;
+  end;
+  Form1.listbox1.Items.SaveToFile('Save.dat');
+  Form1.edit5.text:='Игра cохранена';
+end;
+
+procedure OpenGameFromFile;
+begin
+  Form1.listbox1.items.LoadFromFile('Save.dat');
+  begin
+  for z:= 1 to 16 do
+  begin
+  with TSpeedButton(form1.components[z+25]) do
+   begin
+   left:=strtoint (Form1.listbox1.Items[z-1]);
+ end;
+end;
+  end;
+   begin
+  for z:= 1 to 16 do
+  begin
+  with TSpeedButton(form1.components[z+25]) do
+   begin
+   top:=strtoint (Form1.listbox1.Items[z+15]);
+ end;
+end;
+  end;
+  Form1.listbox1.clear;
+  Form1.edit5.text:='Игра загружена';
+end;
+
+procedure randomplace;
+begin
+begin
+ for j:=1  to 16 do a[j]:=0;
+ randomize;
+ i:=1;
+repeat
+ rn:=random(16)+1;
+ j:=1;
+ while (a[j]<>rn) and (j<>17) do j:=j+1;
+ if j=17 then
+ begin a[i]:=rn;
+ i:=i+1;
+ end;
+until i=17;
+end;
+begin
+ p:=0;
+ for i:=0 to 3 do
+ for j:=0 to 3 do
+ begin
+  p:=p+1;
+  begin
+  with TSpeedButton(form1.components[a[p]+25]) do
+   begin
+   left:=j*80+8;
+   top:=i*80+8;
+   end;
+  end;
+ end;
+end;
+end;
+
+procedure WhiteOn;
+begin
+Form1.SpeedButton0.Color:=ClSilver;
+  Form1.SpeedButton0.Font.Color:=ClBlack;
+    Form1.SpeedButton1.Color:=ClSilver;
+  Form1.SpeedButton1.Font.Color:=ClBlack;
+    Form1.SpeedButton2.Color:=ClSilver;
+  Form1.SpeedButton2.Font.Color:=ClBlack;
+    Form1.SpeedButton3.Color:=ClSilver;
+  Form1.SpeedButton3.Font.Color:=ClBlack;
+    Form1.SpeedButton4.Color:=ClSilver;
+  Form1.SpeedButton4.Font.Color:=ClBlack;
+    Form1.SpeedButton5.Color:=ClSilver;
+  Form1.SpeedButton5.Font.Color:=ClBlack;
+    Form1.SpeedButton6.Color:=ClSilver;
+  Form1.SpeedButton6.Font.Color:=ClBlack;
+  Form1.SpeedButton7.Color:=ClSilver;
+  Form1.SpeedButton7.Font.Color:=ClBlack;
+    Form1.SpeedButton8.Color:=ClSilver;
+  Form1.SpeedButton8.Font.Color:=ClBlack;
+    Form1.SpeedButton9.Color:=ClSilver;
+  Form1.SpeedButton9.Font.Color:=ClBlack;
+    Form1.SpeedButton10.Color:=ClSilver;
+  Form1.SpeedButton10.Font.Color:=ClBlack;
+    Form1.SpeedButton11.Color:=ClSilver;
+  Form1.SpeedButton11.Font.Color:=ClBlack;
+    Form1.SpeedButton12.Color:=ClSilver;
+  Form1.SpeedButton12.Font.Color:=ClBlack;
+    Form1.SpeedButton13.Color:=ClSilver;
+  Form1.SpeedButton13.Font.Color:=ClBlack;
+    Form1.SpeedButton14.Color:=ClSilver;
+  Form1.SpeedButton14.Font.Color:=ClBlack;
+    Form1.SpeedButton15.Color:=ClSilver;
+  Form1.SpeedButton15.Font.Color:=ClBlack;
+end;
+
+procedure BlackOn;
+begin
+Form1.SpeedButton0.Color:=ClBlack;
+  Form1.SpeedButton0.Font.Color:=ClWhite;
+    Form1.SpeedButton1.Color:=ClBlack;
+  Form1.SpeedButton1.Font.Color:=ClWhite;
+    Form1.SpeedButton2.Color:=ClBlack;
+  Form1.SpeedButton2.Font.Color:=ClWhite;
+    Form1.SpeedButton3.Color:=ClBlack;
+  Form1.SpeedButton3.Font.Color:=ClWhite;
+    Form1.SpeedButton4.Color:=ClBlack;
+  Form1.SpeedButton4.Font.Color:=ClWhite;
+    Form1.SpeedButton5.Color:=ClBlack;
+  Form1.SpeedButton5.Font.Color:=ClWhite;
+    Form1.SpeedButton6.Color:=ClBlack;
+  Form1.SpeedButton6.Font.Color:=ClWhite;
+    Form1.SpeedButton7.Color:=ClBlack;
+  Form1.SpeedButton7.Font.Color:=ClWhite;
+    Form1.SpeedButton8.Color:=ClBlack;
+  Form1.SpeedButton8.Font.Color:=ClWhite;
+    Form1.SpeedButton9.Color:=ClBlack;
+  Form1.SpeedButton9.Font.Color:=ClWhite;
+    Form1.SpeedButton10.Color:=ClBlack;
+  Form1.SpeedButton10.Font.Color:=ClWhite;
+    Form1.SpeedButton11.Color:=ClBlack;
+  Form1.SpeedButton11.Font.Color:=ClWhite;
+    Form1.SpeedButton12.Color:=ClBlack;
+  Form1.SpeedButton12.Font.Color:=ClWhite;
+Form1.SpeedButton13.Color:=ClBlack;
+Form1.SpeedButton13.Font.Color:=ClWhite;
+Form1.SpeedButton14.Color:=ClBlack;
+Form1.SpeedButton14.Font.Color:=ClWhite;
+Form1.SpeedButton15.Color:=ClBlack;
+Form1.SpeedButton15.Font.Color:=ClWhite;
+end;
+
+procedure VioletOn;
+begin
+Form1.SpeedButton0.Color:=$00C08080;
+Form1.SpeedButton0.Font.Color:=$00FF80FF;
+Form1.SpeedButton1.Color:=$00C08080;
+Form1.SpeedButton1.Font.Color:=$00FF80FF;
+Form1.SpeedButton2.Color:=$00C08080;
+Form1.SpeedButton2.Font.Color:=$00FF80FF;
+Form1.SpeedButton3.Color:=$00C08080;
+Form1.SpeedButton3.Font.Color:=$00FF80FF;
+Form1.SpeedButton4.Color:=$00C08080;
+Form1.SpeedButton4.Font.Color:=$00FF80FF;
+Form1.SpeedButton5.Color:=$00C08080;
+Form1.SpeedButton5.Font.Color:=$00FF80FF;
+Form1.SpeedButton6.Color:=$00C08080;
+Form1.SpeedButton6.Font.Color:=$00FF80FF;
+Form1.SpeedButton7.Color:=$00C08080;
+Form1.SpeedButton7.Font.Color:=$00FF80FF;
+Form1.SpeedButton8.Color:=$00C08080;
+Form1.SpeedButton8.Font.Color:=$00FF80FF;
+Form1.SpeedButton9.Color:=$00C08080;
+Form1.SpeedButton9.Font.Color:=$00FF80FF;
+Form1.SpeedButton10.Color:=$00C08080;
+Form1.SpeedButton10.Font.Color:=$00FF80FF;
+Form1.SpeedButton11.Color:=$00C08080;
+Form1.SpeedButton11.Font.Color:=$00FF80FF;
+Form1.SpeedButton12.Color:=$00C08080;
+Form1.SpeedButton12.Font.Color:=$00FF80FF;
+Form1.SpeedButton13.Color:=$00C08080;
+Form1.SpeedButton13.Font.Color:=$00FF80FF;
+Form1.SpeedButton14.Color:=$00C08080;
+Form1.SpeedButton14.Font.Color:=$00FF80FF;
+Form1.SpeedButton15.Color:=$00C08080;
+Form1.SpeedButton15.Font.Color:=$00FF80FF;
+end;
 
 procedure btnEnable;
 begin
@@ -190,7 +469,14 @@ end;
 
 procedure Moves (var btnLeft, btnTop, btn0left, btn0Top: integer);
 var x, y: integer;
+
 begin
+Form1.ListBox3.Clear;
+Form1.ListBox3.Items.Add(IntToStr(BtnLeft));
+Form1.ListBox3.Items.Add(IntToStr(BtnTop));
+Form1.ListBox3.Items.Add(IntToStr(Btn0Left));
+Form1.ListBox3.Items.Add(IntToStr(Btn0Top));
+Form1.Edit5.Text:='';
 x:=btnLeft;
 btnLeft:=btn0left;
 btn0left:=x;
@@ -200,12 +486,20 @@ btn0Top:=y;
 end;
 procedure TForm1.MenuSaveGameClick(Sender: TObject);
 begin
-  SaveDialog1.Execute;
+  SaveGameToFile;
 end;
 
 procedure TForm1.MenuNewGameClick(Sender: TObject);
 begin
-
+  Label7.Caption:='0';
+  OptionDisable;
+  randomplace;
+  btnEnable;
+  edit5.text:='';
+  edit5.visible:=true;
+  edit1.text:= '0';
+  edit2.text:= '0';
+  label4.caption:= timetostr(now);
 end;
 
 procedure TForm1.MenuRulesClick(Sender: TObject);
@@ -222,29 +516,166 @@ end;
 
 
 procedure TForm1.FormCreate(Sender: TObject);
+var
+buttonSelected : Integer;
+begin
+  ListBox3.Items.Add('0');
+  edit1.text:= '0';
+  edit2.text:= '0';
+  Label7.Caption:='1';
+  Edit5.Visible:= true;
+  Edit5.Text:= 'Установлена базовая позиция';
+
+  btnDisable;
+  listbox2.Items.LoadFromFile('Option.ini');
+
+  if ListBox2.Items[1]='1' then begin
+  Edit1.Visible:= true;
+  Label1.Visible:=true;
+  end;
+
+  if ListBox2.Items[3]='1' then begin
+  Edit2.Visible:= true;
+  Label2.Visible:=true;
+  end;
+
+  if ListBox2.Items[5]='1' then begin
+  Edit3.Visible:= true;
+  Label5.Visible:=true;
+  Edit3.Text:=ListBox2.Items[6];
+  end;
+
+  if ListBox2.Items[8]='1' then begin
+  Edit4.Visible:= true;
+  Label6.Visible:=true;
+  Edit4.Text:=ListBox2.Items[9];
+  end;
+
+  if ListBox2.Items[11]='1' then WhiteOn;
+
+  if ListBox2.Items[11]='2' then BlackOn;
+
+  if ListBox2.Items[11]='3' then VioletOn;
+
+  if ListBox2.Items[13]='Yes' then
+  begin
+
+
+
+  buttonSelected := MessageDlg('Вы хотите загрузить сохраненную игру?',mtConfirmation, mbOKCancel, 0);
+  if buttonSelected = mrOK     then
+  begin
+    OpenGameFromFile;
+    BtnEnable;
+    OptionDisable;
+  end;
+end;
+end;
+procedure TForm1.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+var x, y: integer;
+begin
+for z:= 1 to 15 do
+begin
+  with TSpeedButton(form1.components[z+25]) do
+if (key=37) and (left=SpeedButton0.left+80) and (top=SpeedButton0.top)  and (GameLose=False) and(GameWin=False) then
+   begin
+ListBox3.Clear;
+ListBox3.Items.Add(IntToStr(Left));
+ListBox3.Items.Add(IntToStr(Top));
+ListBox3.Items.Add(IntToStr(SpeedButton0.Left));
+ListBox3.Items.Add(IntToStr(SpeedButton0.Top));
+Edit5.Text:='';
+x:=Left;
+Left:=SpeedButton0.left;
+SpeedButton0.left:=x;
+   edit1.text:=inttostr(strtoint(edit1.Text)+1);
+   break;
+end
+ else
+
+if (key=38) and (left=SpeedButton0.left) and (top=SpeedButton0.top+80)  and (GameLose=False) and(GameWin=False) then
+   begin
+ListBox3.Clear;
+ListBox3.Items.Add(IntToStr(Left));
+ListBox3.Items.Add(IntToStr(Top));
+ListBox3.Items.Add(IntToStr(SpeedButton0.Left));
+ListBox3.Items.Add(IntToStr(SpeedButton0.Top));
+Edit5.Text:='';
+y:=Top;
+Top:=SpeedButton0.Top;
+SpeedButton0.Top:=y;
+   edit1.text:=inttostr(strtoint(edit1.Text)+1);
+   break;
+end
+  else
+if (key=39) and (left=SpeedButton0.left-80) and (top=SpeedButton0.top)  and (GameLose=False) and(GameWin=False) then
+   begin
+   ListBox3.Clear;
+ListBox3.Items.Add(IntToStr(Left));
+ListBox3.Items.Add(IntToStr(Top));
+ListBox3.Items.Add(IntToStr(SpeedButton0.Left));
+ListBox3.Items.Add(IntToStr(SpeedButton0.Top));
+Edit5.Text:='';
+x:=Left;
+Left:=SpeedButton0.left;
+SpeedButton0.left:=x;
+   edit1.text:=inttostr(strtoint(edit1.Text)+1);
+   break;
+end
+ else
+if (key=40) and (left=SpeedButton0.left) and (top=SpeedButton0.top-80)  and (GameLose=False) and(GameWin=False) then
+   begin
+   ListBox3.Clear;
+ListBox3.Items.Add(IntToStr(Left));
+ListBox3.Items.Add(IntToStr(Top));
+ListBox3.Items.Add(IntToStr(SpeedButton0.Left));
+ListBox3.Items.Add(IntToStr(SpeedButton0.Top));
+Edit5.Text:='';
+y:=Top;
+Top:=SpeedButton0.Top;
+SpeedButton0.Top:=y;
+   edit1.text:=inttostr(strtoint(edit1.Text)+1);
+   break;
+end
+ else
+ if (key=27) and (ListBox3.Items[0]<>'0') and (Left=StrToInt(ListBox3.Items[2])) and (Top=StrToInt(ListBox3.Items[3])) then
+    begin
+    Left:=StrToInt(ListBox3.Items[0]);
+    Top:=StrToInt(ListBox3.Items[1]);
+    SpeedButton0.Left:=StrToInt(ListBox3.Items[2]);
+    SpeedButton0.Top:=StrToInt(ListBox3.Items[3]);
+    Edit5.Text:='Ход отменен';
+    Edit1.Text:=IntToStr(StrToInt(Edit1.Text)-1);
+    ListBox3.Clear;
+    ListBox3.Items.Add('0');
+    Break;
+    end
+ else
+ if (ListBox3.Items[0]='0') then Edit5.Text:='Невозможно отменить ход';
+  end;
+ if key=113 then SaveGameToFile;
+ if key=114 then OpenGameFromFile;
+ if key=9 then Form1.WindowState:=wsMinimized ;
+end;
+
+procedure TForm1.Label7Click(Sender: TObject);
 begin
 
 end;
 
-procedure TForm1.Edit3Change(Sender: TObject);
+procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+var
+buttonSelected : Integer;
+begin
+buttonSelected := MessageDlg('Вы хотите сохранить текущую игру?',mtConfirmation, mbOKCancel, 0);
+if buttonSelected = mrOK     then SaveGameToFile;
+end;
+
+procedure TForm1.Edit2Change(Sender: TObject);
 begin
 
 end;
 
-procedure TForm1.Button6Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.BitBtn1Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Label4Click(Sender: TObject);
-begin
-
-end;
 
 procedure TForm1.Menu15minClick(Sender: TObject);
 begin
@@ -290,79 +721,111 @@ end;
 
 procedure TForm1.MenuBlackClick(Sender: TObject);
 begin
-  SpeedButton0.Color:=ClBlack;
-  SpeedButton0.Font.Color:=ClWhite;
-    SpeedButton1.Color:=ClBlack;
-  SpeedButton1.Font.Color:=ClWhite;
-    SpeedButton2.Color:=ClBlack;
-  SpeedButton2.Font.Color:=ClWhite;
-    SpeedButton3.Color:=ClBlack;
-  SpeedButton3.Font.Color:=ClWhite;
-    SpeedButton4.Color:=ClBlack;
-  SpeedButton4.Font.Color:=ClWhite;
-    SpeedButton5.Color:=ClBlack;
-  SpeedButton5.Font.Color:=ClWhite;
-    SpeedButton6.Color:=ClBlack;
-  SpeedButton6.Font.Color:=ClWhite;
-    SpeedButton7.Color:=ClBlack;
-  SpeedButton7.Font.Color:=ClWhite;
-    SpeedButton8.Color:=ClBlack;
-  SpeedButton8.Font.Color:=ClWhite;
-    SpeedButton9.Color:=ClBlack;
-  SpeedButton9.Font.Color:=ClWhite;
-    SpeedButton10.Color:=ClBlack;
-  SpeedButton10.Font.Color:=ClWhite;
-    SpeedButton11.Color:=ClBlack;
-  SpeedButton11.Font.Color:=ClWhite;
-    SpeedButton12.Color:=ClBlack;
-  SpeedButton12.Font.Color:=ClWhite;
-    SpeedButton13.Color:=ClBlack;
-  SpeedButton13.Font.Color:=ClWhite;
-    SpeedButton14.Color:=ClBlack;
-  SpeedButton14.Font.Color:=ClWhite;
-    SpeedButton15.Color:=ClBlack;
-  SpeedButton15.Font.Color:=ClWhite;
+  BlackOn;
+end;
+
+procedure TForm1.MenuEndGameClick(Sender: TObject);
+begin
+ OptionEnable;
+ SpeedButton1.Left:=8; SpeedButton5.Left:=8; SpeedButton9.Left:=8; SpeedButton13.Left:=8;
+ SpeedButton2.Left:=88; SpeedButton6.Left:=88; SpeedButton10.Left:=88; SpeedButton14.Left:=88;
+ SpeedButton3.Left:=168; SpeedButton7.Left:=168; SpeedButton11.Left:=168; SpeedButton15.Left:=168;
+ SpeedButton4.Left:=248; SpeedButton8.Left:=248; SpeedButton12.Left:=248; SpeedButton0.Left:=248;
+ SpeedButton1.Top:=8; SpeedButton2.Top:=8; SpeedButton3.Top:=8; SpeedButton4.Top:=8;
+ SpeedButton5.Top:=88; SpeedButton6.Top:=88; SpeedButton7.Top:=88; SpeedButton8.Top:=88;
+ SpeedButton9.Top:=168; SpeedButton10.Top:=168; SpeedButton11.Top:=168; SpeedButton12.Top:=168;
+ SpeedButton13.Top:=248; SpeedButton14.Top:=248; SpeedButton15.Top:=248; SpeedButton0.Top:=248;
+
+ Label7.Caption:='1';
+ Edit5.Visible:= true;
+ Edit5.Text:= 'Установлена базовая позиция';
+
+end;
+
+procedure TForm1.MenuOffTimeClick(Sender: TObject);
+begin
+ Label6.Visible:= false;
+ Edit4.Visible:= false;
+ Edit4.Text:= '';
+end;
+
+procedure TForm1.MenuOffMoveClick(Sender: TObject);
+begin
+ Label5.Visible:= false;
+ Edit3.Visible:= false;
+ Edit3.Text:= '';
+end;
+
+
+
+procedure TForm1.MenuSaveOptionClick(Sender: TObject);
+begin
+  ListBox2.clear;
+
+  ListBox2.Items.Add('[CountMove]');
+  if Edit1.Visible=true then ListBox2.Items.Add('1') else ListBox2.Items.Add ('0');
+
+  ListBox2.Items.Add('[CountTime]');
+  if Edit2.Visible=true then ListBox2.Items.Add('1') else ListBox2.Items.Add ('0');
+
+  ListBox2.Items.Add('[LimitMove]');
+  if Edit3.Visible=true then ListBox2.Items.Add('1') else ListBox2.Items.Add ('0');
+  if Edit3.Text='' then ListBox2.Items.Add('0') else ListBox2.Items.Add (Edit3.Text);
+
+  ListBox2.Items.Add('[LimitTime]');
+  if Edit4.Visible=true then ListBox2.Items.Add('1') else ListBox2.Items.Add ('0');
+  if Edit4.Text='' then ListBox2.Items.Add('0') else ListBox2.Items.Add (Edit4.Text);
+
+  ListBox2.Items.Add('[Interface]');
+  if SpeedButton1.Color=ClSilver then ListBox2.Items.Add('1');
+  if SpeedButton1.Color=ClBlack then ListBox2.Items.Add('2');
+  if SpeedButton1.Color=$00C08080 then ListBox2.Items.Add('3');
+
+  ListBox2.Items.Add('[Save]');
+  ListBox1.Clear;
+  ListBox1.Items.LoadFromFile('Save.dat');
+  if ListBox1.Items[0]='' then ListBox2.Items.Add('No') else ListBox2.Items.Add('Yes');
+
+  ListBox2.Items.SaveToFile('Option.ini');
 end;
 
 procedure TForm1.MenuWhiteClick(Sender: TObject);
 begin
-  SpeedButton0.Color:=ClSilver;
-  SpeedButton0.Font.Color:=ClBlack;
-    SpeedButton1.Color:=ClSilver;
-  SpeedButton1.Font.Color:=ClBlack;
-    SpeedButton2.Color:=ClSilver;
-  SpeedButton2.Font.Color:=ClBlack;
-    SpeedButton3.Color:=ClSilver;
-  SpeedButton3.Font.Color:=ClBlack;
-    SpeedButton4.Color:=ClSilver;
-  SpeedButton4.Font.Color:=ClBlack;
-    SpeedButton5.Color:=ClSilver;
-  SpeedButton5.Font.Color:=ClBlack;
-    SpeedButton6.Color:=ClSilver;
-  SpeedButton6.Font.Color:=ClBlack;
-  SpeedButton7.Color:=ClSilver;
-  SpeedButton7.Font.Color:=ClBlack;
-    SpeedButton8.Color:=ClSilver;
-  SpeedButton8.Font.Color:=ClBlack;
-    SpeedButton9.Color:=ClSilver;
-  SpeedButton9.Font.Color:=ClBlack;
-    SpeedButton10.Color:=ClSilver;
-  SpeedButton10.Font.Color:=ClBlack;
-    SpeedButton11.Color:=ClSilver;
-  SpeedButton11.Font.Color:=ClBlack;
-    SpeedButton12.Color:=ClSilver;
-  SpeedButton12.Font.Color:=ClBlack;
-    SpeedButton13.Color:=ClSilver;
-  SpeedButton13.Font.Color:=ClBlack;
-    SpeedButton14.Color:=ClSilver;
-  SpeedButton14.Font.Color:=ClBlack;
-    SpeedButton15.Color:=ClSilver;
-  SpeedButton15.Font.Color:=ClBlack;
+  WhiteOn;
 end;
 
 procedure TForm1.Shape11ChangeBounds(Sender: TObject);
 begin
+  Edit5.Text:='Поле свободно';
+end;
 
+procedure TForm1.Shape11MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  Edit5.Text:='Поле свободно';
+end;
+
+procedure TForm1.Shape12ChangeBounds(Sender: TObject);
+begin
+  Edit5.Text:='Поле свободно';
+end;
+
+procedure TForm1.Shape12MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  Edit5.Text:='Поле свободно';
+end;
+
+procedure TForm1.Shape14ChangeBounds(Sender: TObject);
+begin
+
+end;
+
+
+procedure TForm1.Shape14MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  Edit5.Text:='Поле свободно';
 end;
 
 procedure TForm1.Shape15ChangeBounds(Sender: TObject);
@@ -370,10 +833,103 @@ begin
 
 end;
 
-procedure TForm1.Shape1ChangeBounds(Sender: TObject);
+procedure TForm1.Shape15MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  Edit5.Text:='Поле свободно';
+end;
+
+procedure TForm1.Shape16ChangeBounds(Sender: TObject);
 begin
 
 end;
+
+procedure TForm1.Shape16MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  Edit5.Text:='Поле свободно';
+end;
+
+procedure TForm1.Shape17ChangeBounds(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.Shape17MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  Edit5.Text:='Поле свободно';
+end;
+
+
+
+procedure TForm1.Shape18MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+Edit5.Text:='Поле свободно';
+end;
+
+procedure TForm1.Shape1MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  Edit5.Text:='Поле свободно';
+end;
+
+procedure TForm1.Shape2MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  Edit5.Text:='Поле свободно';
+end;
+
+procedure TForm1.Shape3MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  Edit5.Text:='Поле свободно';
+end;
+
+procedure TForm1.Shape4MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  Edit5.Text:='Поле свободно';
+end;
+
+procedure TForm1.Shape5MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  Edit5.Text:='Поле свободно';
+end;
+
+procedure TForm1.Shape6MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  Edit5.Text:='Поле свободно';
+end;
+
+procedure TForm1.Shape7MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  Edit5.Text:='Поле свободно';
+end;
+
+procedure TForm1.Shape8MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  Edit5.Text:='Поле свободно';
+end;
+
+procedure TForm1.Shape9ChangeBounds(Sender: TObject);
+begin
+
+end;
+
+
+procedure TForm1.Shape9MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  Edit5.Text:='Поле свободно';
+end;
+
+
 
 procedure TForm1.SpeedButton0Click(Sender: TObject);
 begin
@@ -389,6 +945,7 @@ begin
   btn0Left:= SpeedButton0.Left; btn0Top:= SpeedButton0.Top;
   if CorrectMove (btnLeft, btnTop, btn0Left,  btn0Top)= true then
   begin
+      edit1.text:=inttostr(strtoint(edit1.Text)+1);
   Moves (btnLeft, btnTop, btn0Left,  btn0Top);
   SpeedButton10.Left:= btnLeft;
   SpeedButton10.Top:= btnTop;
@@ -407,6 +964,7 @@ begin
   btn0Left:= SpeedButton0.Left; btn0Top:= SpeedButton0.Top;
   if CorrectMove (btnLeft, btnTop, btn0Left,  btn0Top)= true then
   begin
+    edit1.text:=inttostr(strtoint(edit1.Text)+1);
   Moves (btnLeft, btnTop, btn0Left,  btn0Top);
   SpeedButton11.Left:= btnLeft;
   SpeedButton11.Top:= btnTop;
@@ -425,6 +983,7 @@ begin
   btn0Left:= SpeedButton0.Left; btn0Top:= SpeedButton0.Top;
   if CorrectMove (btnLeft, btnTop, btn0Left,  btn0Top)= true then
   begin
+    edit1.text:=inttostr(strtoint(edit1.Text)+1);
   Moves (btnLeft, btnTop, btn0Left,  btn0Top);
   SpeedButton12.Left:= btnLeft;
   SpeedButton12.Top:= btnTop;
@@ -443,6 +1002,7 @@ begin
   btn0Left:= SpeedButton0.Left; btn0Top:= SpeedButton0.Top;
   if CorrectMove (btnLeft, btnTop, btn0Left,  btn0Top)= true then
   begin
+    edit1.text:=inttostr(strtoint(edit1.Text)+1);
   Moves (btnLeft, btnTop, btn0Left,  btn0Top);
   SpeedButton13.Left:= btnLeft;
   SpeedButton13.Top:= btnTop;
@@ -461,6 +1021,7 @@ begin
   btn0Left:= SpeedButton0.Left; btn0Top:= SpeedButton0.Top;
   if CorrectMove (btnLeft, btnTop, btn0Left,  btn0Top)= true then
   begin
+    edit1.text:=inttostr(strtoint(edit1.Text)+1);
   Moves (btnLeft, btnTop, btn0Left,  btn0Top);
   SpeedButton14.Left:= btnLeft;
   SpeedButton14.Top:= btnTop;
@@ -479,6 +1040,7 @@ begin
   btn0Left:= SpeedButton0.Left; btn0Top:= SpeedButton0.Top;
   if CorrectMove (btnLeft, btnTop, btn0Left,  btn0Top)= true then
   begin
+    edit1.text:=inttostr(strtoint(edit1.Text)+1);
   Moves (btnLeft, btnTop, btn0Left,  btn0Top);
   SpeedButton15.Left:= btnLeft;
   SpeedButton15.Top:= btnTop;
@@ -497,6 +1059,8 @@ begin
   btn0Left:= SpeedButton0.Left; btn0Top:= SpeedButton0.Top;
   if CorrectMove (btnLeft, btnTop, btn0Left,  btn0Top)= true then
   begin
+    edit1.text:=inttostr(strtoint(edit1.Text)+1);
+  //edit1.text:=inttostr(strtoint(edit1.Text)+1);
   Moves (btnLeft, btnTop, btn0Left,  btn0Top);
   SpeedButton1.Left:= btnLeft;
   SpeedButton1.Top:= btnTop;
@@ -515,6 +1079,8 @@ begin
   btn0Left:= SpeedButton0.Left; btn0Top:= SpeedButton0.Top;
   if CorrectMove (btnLeft, btnTop, btn0Left,  btn0Top)= true then
   begin
+    edit1.text:=inttostr(strtoint(edit1.Text)+1);
+  edit1.text:=inttostr(strtoint(edit1.Text)+1);
   Moves (btnLeft, btnTop, btn0Left,  btn0Top);
   SpeedButton2.Left:= btnLeft;
   SpeedButton2.Top:= btnTop;
@@ -533,6 +1099,8 @@ begin
   btn0Left:= SpeedButton0.Left; btn0Top:= SpeedButton0.Top;
   if CorrectMove (btnLeft, btnTop, btn0Left,  btn0Top)= true then
   begin
+    edit1.text:=inttostr(strtoint(edit1.Text)+1);
+  edit1.text:=inttostr(strtoint(edit1.Text)+1);
   Moves (btnLeft, btnTop, btn0Left,  btn0Top);
   SpeedButton3.Left:= btnLeft;
   SpeedButton3.Top:= btnTop;
@@ -552,6 +1120,7 @@ begin
   btn0Left:= SpeedButton0.Left; btn0Top:= SpeedButton0.Top;
   if CorrectMove (btnLeft, btnTop, btn0Left,  btn0Top)= true then
   begin
+    edit1.text:=inttostr(strtoint(edit1.Text)+1);
   Moves (btnLeft, btnTop, btn0Left,  btn0Top);
   SpeedButton4.Left:= btnLeft;
   SpeedButton4.Top:= btnTop;
@@ -571,6 +1140,7 @@ begin
   btn0Left:= SpeedButton0.Left; btn0Top:= SpeedButton0.Top;
   if CorrectMove (btnLeft, btnTop, btn0Left,  btn0Top)= true then
   begin
+     edit1.text:=inttostr(strtoint(edit1.Text)+1);
   Moves (btnLeft, btnTop, btn0Left,  btn0Top);
   SpeedButton5.Left:= btnLeft;
   SpeedButton5.Top:= btnTop;
@@ -590,6 +1160,7 @@ begin
   btn0Left:= SpeedButton0.Left; btn0Top:= SpeedButton0.Top;
   if CorrectMove (btnLeft, btnTop, btn0Left,  btn0Top)= true then
   begin
+    edit1.text:=inttostr(strtoint(edit1.Text)+1);
   Moves (btnLeft, btnTop, btn0Left,  btn0Top);
   SpeedButton6.Left:= btnLeft;
   SpeedButton6.Top:= btnTop;
@@ -608,6 +1179,7 @@ begin
   btn0Left:= SpeedButton0.Left; btn0Top:= SpeedButton0.Top;
   if CorrectMove (btnLeft, btnTop, btn0Left,  btn0Top)= true then
   begin
+    edit1.text:=inttostr(strtoint(edit1.Text)+1);
   Moves (btnLeft, btnTop, btn0Left,  btn0Top);
   SpeedButton7.Left:= btnLeft;
   SpeedButton7.Top:= btnTop;
@@ -627,6 +1199,7 @@ begin
   btn0Left:= SpeedButton0.Left; btn0Top:= SpeedButton0.Top;
   if CorrectMove (btnLeft, btnTop, btn0Left,  btn0Top)= true then
   begin
+    edit1.text:=inttostr(strtoint(edit1.Text)+1);
   Moves (btnLeft, btnTop, btn0Left,  btn0Top);
   SpeedButton8.Left:= btnLeft;
   SpeedButton8.Top:= btnTop;
@@ -645,6 +1218,7 @@ begin
   btn0Left:= SpeedButton0.Left; btn0Top:= SpeedButton0.Top;
   if CorrectMove (btnLeft, btnTop, btn0Left,  btn0Top)= true then
   begin
+    edit1.text:=inttostr(strtoint(edit1.Text)+1);
   Moves (btnLeft, btnTop, btn0Left,  btn0Top);
   SpeedButton9.Left:= btnLeft;
   SpeedButton9.Top:= btnTop;
@@ -659,38 +1233,7 @@ end;
 
 procedure TForm1.MenuVioletClick(Sender: TObject);
 begin
-SpeedButton0.Color:=$00C08080;
-SpeedButton0.Font.Color:=$00FF80FF;
-SpeedButton1.Color:=$00C08080;
-SpeedButton1.Font.Color:=$00FF80FF;
-SpeedButton2.Color:=$00C08080;
-SpeedButton2.Font.Color:=$00FF80FF;
-SpeedButton3.Color:=$00C08080;
-SpeedButton3.Font.Color:=$00FF80FF;
-SpeedButton4.Color:=$00C08080;
-SpeedButton4.Font.Color:=$00FF80FF;
-SpeedButton5.Color:=$00C08080;
-SpeedButton5.Font.Color:=$00FF80FF;
-SpeedButton6.Color:=$00C08080;
-SpeedButton6.Font.Color:=$00FF80FF;
-SpeedButton7.Color:=$00C08080;
-SpeedButton7.Font.Color:=$00FF80FF;
-SpeedButton8.Color:=$00C08080;
-SpeedButton8.Font.Color:=$00FF80FF;
-SpeedButton9.Color:=$00C08080;
-SpeedButton9.Font.Color:=$00FF80FF;
-SpeedButton10.Color:=$00C08080;
-SpeedButton10.Font.Color:=$00FF80FF;
-SpeedButton11.Color:=$00C08080;
-SpeedButton11.Font.Color:=$00FF80FF;
-SpeedButton12.Color:=$00C08080;
-SpeedButton12.Font.Color:=$00FF80FF;
-SpeedButton13.Color:=$00C08080;
-SpeedButton13.Font.Color:=$00FF80FF;
-SpeedButton14.Color:=$00C08080;
-SpeedButton14.Font.Color:=$00FF80FF;
-SpeedButton15.Color:=$00C08080;
-SpeedButton15.Font.Color:=$00FF80FF;
+VioletOn;
 end;
 
 procedure TForm1.MenuMoves150Click(Sender: TObject);
@@ -729,16 +1272,17 @@ end;
 
 procedure TForm1.MenuOpenGameClick(Sender: TObject);
 begin
-  OpenDialog1.Execute;
+  OpenGameFromFile;
 end;
 
 procedure TForm1.MenuExitGameClick(Sender: TObject);
 begin
-  Application.terminate
+Form1.Close;
 end;
 
 procedure TForm1.MenuTimerClick(Sender: TObject);
 begin
+Edit2.Text:= '0:00:00';
 label4.Caption:=timetostr(now);
   if menuTimer.Checked=False then
     begin
@@ -762,10 +1306,25 @@ end;
 procedure TForm1.Timer1Timer(Sender: TObject);
 var t1, t2: tdatetime;
 begin
-label3.Caption:=timetostr(now);
-t1:= strtotime(label3.caption);
-t2:= strtotime(label4.caption);
-edit2.Text:=timetostr(t1-t2);
+   if (GameWin=false) and (GameLose=false) then
+     begin
+     label3.Caption:=timetostr(now);
+     t1:= strtotime(label3.caption);
+     t2:= strtotime(label4.caption);
+     edit2.Text:=timetostr(t1-t2);
+     end;
+if GameWin= true then
+  begin
+  edit5.text:= 'ВЫ ПОБЕДИЛИ!!!';
+  btndisable;
+  OptionEnable;
+  end;
+if GameLose= true then
+  begin
+  edit5.text:= 'ВЫ ПРОИГРАЛИ :(';
+  btndisable;
+  OptionEnable;
+  end;
 end;
 
 
